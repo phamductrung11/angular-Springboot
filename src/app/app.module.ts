@@ -1,5 +1,10 @@
+import { TokenInterceptor } from './rest/token-interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {ApiService} from './Service/api.service';
+import {AuthService} from './Service/auth.service';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,10 +20,11 @@ import { AddressComponent } from './Components/home/address/address.component';
 import { CartItemComponent } from './Components/home/cart-item/cart-item.component';
 import { EditItemComponent } from './Components/admin/edit-item/edit-item.component';
 import { OrderItemComponent } from './Components/admin/order-item/order-item.component';
+import { AuthGuard } from './Service/auth.guard';
 
 const appRoute :Routes=[
   { path: '',
-  redirectTo: '/home',
+  redirectTo: '/login',
   pathMatch: 'full'
 },
 {
@@ -31,13 +37,14 @@ component: RegisterComponent
 },
 {
 path:'admin',
-component: AdminComponent
+component: AdminComponent,
+canActivate:[AuthGuard]
 }
 ,
 {
 path:'home',
 component: HomeComponent,
-// canActivate:[AuthguardGuard]
+canActivate:[AuthGuard]
 },
 {
   path:'navigation',
@@ -46,22 +53,22 @@ component: NavigationComponent
 {
   path:'home/cart',
   component: CartItemComponent,
-  // canActivate:[AuthguardGuard]
+  canActivate:[AuthGuard]
 },
 {
   path:'home/address',
   component: AddressComponent,
-  // canActivate:[AuthguardGuard]
+  canActivate:[AuthGuard]
 },
 {
   path:'admin/edit',
   component: EditItemComponent,
-  // canActivate:[AuthguardGuard]
+  canActivate:[AuthGuard]
 },
 {
   path:'admin/order',
   component: OrderItemComponent,
-  // canActivate:[AuthguardGuard]
+  canActivate:[AuthGuard]
 }
 
 
@@ -87,9 +94,17 @@ component: NavigationComponent
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+    HttpClientModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },
+  ApiService,
+  AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
