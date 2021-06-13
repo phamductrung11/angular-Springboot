@@ -27,7 +27,6 @@ export class NavigationComponent implements OnInit {
         this.loggedType = "customer";
       } else if (this.auth_type.authType() == "Admin") {
         this.loggedType = "admin";
-        console.log(this.loggedType);
       }
     }
   }
