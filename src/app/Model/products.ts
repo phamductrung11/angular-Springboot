@@ -1,8 +1,11 @@
 export class Product {
-  public productid: number;
+  public id: number;
   public description: string;
   public price: number;
-  public productname: string;
+  public name: string;
   public quantity: number;
-  public productimage: File;
+  public userId: number;
+  public imageUrl: string;
+  public imageDate : any;
+
 }

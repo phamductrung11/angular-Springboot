@@ -5,6 +5,7 @@ export class UserModel {
   public age: number;
   public token:string;
   public roles:any;
+  public id:number;
   constructor(username: string, password: string, age: number, email: string) {
     this.email = email;
     this.age = age;

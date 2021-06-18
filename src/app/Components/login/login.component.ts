@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         
       }
      
-      this._authServe.setToken(res.token,this.auth_type);
+      this._authServe.setToken(res.token,this.auth_type,res.id);
       
     }
     },err => {

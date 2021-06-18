@@ -21,6 +21,8 @@ import { CartItemComponent } from './Components/home/cart-item/cart-item.compone
 import { EditItemComponent } from './Components/admin/edit-item/edit-item.component';
 import { OrderItemComponent } from './Components/admin/order-item/order-item.component';
 import { AuthGuard } from './Service/auth.guard';
+import {UploadService} from'./Service/upload.service';
+import { OrderService } from './Service/order.service';
 
 const appRoute :Routes=[
   { path: '',
@@ -104,7 +106,9 @@ component: NavigationComponent
     multi: true
   },
   ApiService,
-  AuthService],
+  AuthService,
+  UploadService,
+  OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

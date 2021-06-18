@@ -13,7 +13,7 @@ export class NavigationComponent implements OnInit {
     private _router:Router,
     public auth_type:AuthService
   ) {
-  
+    this.navigation();
    }
 
   ngOnInit(): void {
@@ -22,18 +22,26 @@ export class NavigationComponent implements OnInit {
   navigation(){
     if (this.auth_type.authType() == null) {
       this.loggedType = "home";
+
     } else {
       if (this.auth_type.authType() == "Customer") {
         this.loggedType = "customer";
+
+
       } else if (this.auth_type.authType() == "Admin") {
         this.loggedType = "admin";
+
+
       }
     }
   }
   logOut(){
     localStorage.removeItem('token');
     localStorage.removeItem('auth_type');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('localCart');
     this._router.navigateByUrl("login");
+    this.navigation();
   }
 
 }

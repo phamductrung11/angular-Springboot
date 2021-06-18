@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(
     public http:HttpClient,
-    private _httpClient:HttpClient
+
   ) {
 
    }
@@ -21,10 +21,15 @@ export class AuthService {
   public authType(): string {
     return localStorage.getItem('auth_type');
   }
+  public getuser_id() {
+    return localStorage.getItem('user_id');
+  }
 
-  public setToken(token: string,auth_type:string) {
+
+  public setToken(token: string,auth_type:string,user_id:any) {
     localStorage.setItem('token', token);
     localStorage.setItem('auth_type', auth_type);
+    localStorage.setItem('user_id', user_id);
   }
    register(user: UserModel): Observable<UserModel> {
     return this.http.post<UserModel>(this.ApiUser+'signup',user);

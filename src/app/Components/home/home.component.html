@@ -1,10 +1,8 @@
-<app-navigation></app-navigation>
 <div class="container">
   <br>
   <div class="row">
-    <div class="col-3 align-left" >
-      <app-product ></app-product>
-
+    <div class="col-3 align-left" *ngFor="let item of product" >
+      <app-product [product]="item" (addCard)="addToCard($event)"></app-product>
     </div>
 
   </div>

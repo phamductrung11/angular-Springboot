@@ -5,28 +5,44 @@ import { Product } from '../Model/products';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiService   {
+  public product :Product[]=[]
   public API: string = "http://localhost:8080/api/";
 
   constructor(
     public http: HttpClient
   ) { }
-  loadProducts(): Observable<Product> {
-    return this.http.get<Product>(this.API + 'products');
+
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.API + 'products');
   }
-  addProducts(product: Product): Observable<Product> {
+  getById(id:number):Observable<Product>{
+    return this.http.get<Product>(`${this.API}products/${id}`);
+  }
+  addProducts(product:Product): Observable<Product> {
     return this.http.post<Product>(this.API + 'products', product);
   }
-  updateProducts(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.API}products/${product.productid}`, {
+  updateProducts(product: any): Observable<Product> {
+    return this.http.put<Product>(`${this.API}products/${product.id}`, {
       description: product.description,
       price: product.price,
-      productname: product.productname,
+      name: product.name,
       quantity: product.quantity,
-      productimage: product.productimage
+      userId: product.userId
+
     });
   }
   deleteProducts(id: number): Observable<Product> {
     return this.http.delete<Product>(this.API + `products/${id}`);
   }
+  handleError(err){
+    if (err.error instanceof Error) {
+      console.log(`client-side error: ${err.error.message}`)
+    }else{
+      console.log(`Serve-side error: ${err.status} -${err.error}`)
+    }
+  }
+
+
+
 }
