@@ -13,7 +13,7 @@ export class NavigationComponent implements OnInit {
     private _router:Router,
     public auth_type:AuthService
   ) {
-    this.navigation();
+
    }
 
   ngOnInit(): void {

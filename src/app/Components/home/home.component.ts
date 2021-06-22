@@ -60,8 +60,8 @@ export class HomeComponent implements OnInit {
   if (card) {
     let storeDataGet = JSON.parse(localStorage.getItem('localCart') || '[]');
    card.quantity = 1;
-   let index = this.findIndex(card.id,storeDataGet);
-   if (index != -1) {
+   let index = storeDataGet.find((item:any)=>item.productId==card.id)
+   if (index ) {
      storeDataGet[index].quantity += card.quantity;
    }else{
      const order =new OrderDetails();
@@ -76,17 +76,17 @@ export class HomeComponent implements OnInit {
   }
 
   }
-  findIndex(id:number,storeDataGet:any){
-    var index = -1
-   for (let i = 0; i < storeDataGet.length; i++) {
-     if (storeDataGet[i].productId==id) {
-      index =i
-      break;
-     }
+  // findIndex(id:number,storeDataGet:any){
+  //   var index = -1
+  //  for (let i = 0; i < storeDataGet.length; i++) {
+  //    if (storeDataGet[i].productId==id) {
+  //     index =i
+  //     break;
+  //    }
 
-   }
-   return index
-  }
+  //  }
+  //  return index
+  // }
 
 
 }
